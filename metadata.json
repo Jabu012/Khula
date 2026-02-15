@@ -1,0 +1,8 @@
+{
+  "name": "Khula Tutor - AI Academic Companion",
+  "description": "An immersive AI-powered tutoring platform that structures knowledge from your own documents to provide personalized, syllabus-aligned learning via live avatars.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
