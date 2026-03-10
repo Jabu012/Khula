@@ -89,13 +89,13 @@ Follow these steps to deploy and test the Khula Tutor environment:
 ## 🌐 Public Code Repo
 
 The official source code is maintained by Jabulani Dube:
-[https://github.com/dubejabulani16/khula-tutor](https://github.com/Jabu012/Khula)
+[https://github.com/dubejabulani16/khula-tutor](https://github.com/dubejabulani16/khula-tutor)
 
 ---
 
 ## ☁️ Proof of Google Cloud Deployment
 
-The application is containerized and deployed via **Google Cloud Run** for high availability and global scaling.
+The application is containerized and deployed via Google Cloud Run for high availability and global scaling.
 
 **Production URL:** [https://ais-pre-geh2mj74yamhjkadurw3c5-61460379161.europe-west1.run.app](https://ais-pre-geh2mj74yamhjkadurw3c5-61460379161.europe-west1.run.app)
 
@@ -112,15 +112,15 @@ The application is containerized and deployed via **Google Cloud Run** for high 
 *The following visuals represent the actual UI structure defined in `App.tsx` and `constants.tsx`.*
 
 ### 1. The Intelligence Hub (PDF Grounding)
-![Intelligence Hub](https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=1200&q=80)
+![Intelligence Hub](/public/screenshot-dashboard.svg)
 *A dark-themed dashboard (`bg-slate-950`) where users upload PDFs. The system extracts topics and summaries using Gemini's structured output.*
 
 ### 2. The Tutoring Room (Immersive AI)
-![AI Tutoring](https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80)
+![AI Tutoring](/public/screenshot-tutoring.svg)
 *A focused, immersive view (`activeView === AppView.TUTORING`) featuring a real-time conversational interface grounded in the active document.*
 
 ### 3. Growth Tracking (Analytics)
-![Growth Tracking](https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80)
+![Growth Tracking](/public/screenshot-analytics.svg)
 *Visualizes syllabus grounding progress and academic difficulty levels (Introductory to Advanced) as parsed from the documents.*
 
 ---
