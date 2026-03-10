@@ -87,7 +87,7 @@ const App: React.FC = () => {
         <aside className="w-80 bg-slate-900 border-r border-slate-800 flex flex-col transition-all duration-500 ease-in-out shrink-0">
           <div className="p-10">
             <h1 className="text-4xl font-black tracking-tighter flex items-center space-x-3 bg-gradient-to-br from-indigo-400 to-purple-500 bg-clip-text text-transparent">
-              <span className="bg-indigo-600 w-12 h-12 flex items-center justify-center rounded-2xl text-white shadow-xl shadow-indigo-600/20 shrink-0">K</span>
+              <img src="/logo.svg" alt="Khula Logo" className="w-12 h-12 rounded-2xl shadow-xl shadow-indigo-600/20 shrink-0" />
               <span>Khula</span>
             </h1>
             <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mt-2 ml-1">Academic AI Avatar</p>
