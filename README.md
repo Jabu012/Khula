@@ -89,7 +89,7 @@ Follow these steps to deploy and test the Khula Tutor environment:
 ## 🌐 Public Code Repo
 
 The official source code is maintained by Jabulani Dube:
-[https://github.com/dubejabulani16/khula-tutor](https://github.com/dubejabulani16/khula-tutor)
+[https://github.com/dubejabulani16/khula-tutor](https://github.com/Jabu012/Khula)
 
 ---
 
