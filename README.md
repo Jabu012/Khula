@@ -131,3 +131,14 @@ The application is containerized and deployed via Google Cloud Run for high avai
 - **AI Engine:** Google Gemini 3 Flash (@google/genai)
 - **Deployment:** Google Cloud Run
 - **Icons:** Lucide React (Custom SVG implementations)
+
+## © Intellectual Property
+
+© 2026 Jabulani Dube. All rights reserved.
+
+Khula Tutor, its architecture, algorithms, AI tutoring methodology, and system design are the intellectual property of the author.
+
+This repository is provided for demonstration, evaluation, and academic purposes only. No part of this project may be reproduced, distributed, or used commercially without explicit permission from the author.
+
+For inquiries regarding licensing or collaboration, please contact:
+dubejabulanil6@gmail.com
