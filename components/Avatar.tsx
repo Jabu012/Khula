@@ -9,79 +9,109 @@ interface AvatarProps {
 
 const Avatar: React.FC<AvatarProps> = ({ isThinking, isSpeaking, isListening }) => {
   return (
-    <div className="relative flex flex-col items-center justify-center space-y-8 py-10">
+    <div className="relative flex flex-col items-center justify-center py-10">
       <div className="relative group">
         {/* Floating Animation Wrapper */}
         <div className="animate-[float_6s_easeInOut_infinite] relative">
-          {/* Dynamic Aura Glow */}
+          
+          {/* Particles */}
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="absolute w-2 h-2 bg-indigo-400 rounded-full animate-pulse" style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`
+            }}></div>
+          ))}
+
+          {/* Enhanced Glowing Aura */}
           <div className={`
-            absolute -inset-10 rounded-full blur-[60px] transition-all duration-1000 opacity-25
-            ${isSpeaking ? 'bg-indigo-500 scale-125' : ''}
-            ${isListening ? 'bg-emerald-500 scale-125' : ''}
-            ${isThinking ? 'bg-amber-500 animate-pulse' : 'bg-indigo-500/10'}
+            absolute -inset-6 rounded-full blur-[40px] transition-all duration-700 opacity-60
+            ${isSpeaking ? 'bg-indigo-500 scale-110' : isListening ? 'bg-emerald-500 scale-110' : isThinking ? 'bg-amber-500 animate-pulse' : 'bg-indigo-500/30'}
           `}></div>
           
+          {/* Rotating Border Effect */}
           <div className={`
-            relative w-52 h-52 md:w-64 md:h-64 rounded-full overflow-hidden border-4 shadow-2xl z-10
-            ${isSpeaking ? 'border-indigo-500' : 'border-slate-800'}
-            ${isListening ? 'border-emerald-500' : ''}
-            ${isThinking ? 'border-amber-500/50' : ''}
-            transition-all duration-500 bg-slate-900
+            absolute -inset-2 rounded-full border-2 border-transparent border-t-indigo-500 border-b-emerald-500 animate-spin-slow
+            ${isThinking ? 'border-t-amber-500 border-b-amber-500' : ''}
+          `}></div>
+
+          {/* Main Circular Avatar */}
+          <div className={`
+            relative w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden shadow-2xl z-10 border-4 border-slate-950
+            transition-all duration-500 bg-slate-900 animate-heartbeat
           `}>
-            {/* Reverted to professional portrait image */}
+            {/* Scanline Effect */}
+            <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] animate-scanline z-20 pointer-events-none"></div>
+            
             <img 
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600&h=600" 
+              src="https://lh3.googleusercontent.com/d/1s_xu9XQNrw_tpA0JTpRh8DO-NXT_8njT" 
               alt="Khula AI Tutor" 
-              className={`w-full h-full object-cover transition-all duration-1000 ${isSpeaking ? 'scale-110 contrast-110' : 'scale-100'}`}
+              className={`w-full h-full object-cover transition-all duration-1000 ${isSpeaking ? 'scale-110 contrast-125 brightness-110' : 'scale-100'} hover:scale-110`}
             />
             
             {/* Interaction States Overlays */}
             {isThinking && (
-              <div className="absolute inset-0 bg-slate-950/50 backdrop-blur-[2px] flex items-center justify-center">
+              <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center">
                 <div className="flex space-x-2">
-                  <div className="w-2.5 h-2.5 bg-amber-400 rounded-full animate-bounce [animation-delay:-0.3s] shadow-[0_0_10px_rgba(251,191,36,0.8)]"></div>
-                  <div className="w-2.5 h-2.5 bg-amber-400 rounded-full animate-bounce [animation-delay:-0.15s] shadow-[0_0_10px_rgba(251,191,36,0.8)]"></div>
-                  <div className="w-2.5 h-2.5 bg-amber-400 rounded-full animate-bounce shadow-[0_0_10px_rgba(251,191,36,0.8)]"></div>
+                  <div className="w-3 h-3 bg-amber-400 rounded-full animate-bounce [animation-delay:-0.3s] shadow-[0_0_15px_rgba(251,191,36,0.8)]"></div>
+                  <div className="w-3 h-3 bg-amber-400 rounded-full animate-bounce [animation-delay:-0.15s] shadow-[0_0_15px_rgba(251,191,36,0.8)]"></div>
+                  <div className="w-3 h-3 bg-amber-400 rounded-full animate-bounce shadow-[0_0_15px_rgba(251,191,36,0.8)]"></div>
                 </div>
               </div>
             )}
             
             {/* Voice Activity Overlay */}
             {isSpeaking && (
-              <div className="absolute inset-x-0 bottom-6 flex justify-center space-x-1.5 h-8 items-end px-16">
+              <div className="absolute inset-x-0 bottom-8 flex justify-center space-x-2 h-10 items-end px-12">
                 {[1, 2, 3, 4, 3, 2, 1, 2, 4, 3].map((h, i) => (
-                  <div key={i} className="w-1.5 bg-white/90 rounded-full animate-[pulse_0.8s_infinite] shadow-sm" style={{ height: `${h * 18}%`, animationDelay: `${i * 0.1}s` }}></div>
+                  <div key={i} className="w-2 bg-indigo-400 rounded-full animate-[pulse_0.6s_infinite] shadow-[0_0_10px_rgba(129,140,248,0.8)]" style={{ height: `${h * 20}%`, animationDelay: `${i * 0.08}s` }}></div>
                 ))}
               </div>
             )}
           </div>
         </div>
-
-        {/* Status Indicator */}
-        <div className={`
-          absolute bottom-6 right-6 w-8 h-8 rounded-full border-4 border-slate-950 z-20 transition-all duration-500 flex items-center justify-center
-          ${isSpeaking ? 'bg-indigo-500 shadow-indigo-500/50 shadow-lg' : isListening ? 'bg-emerald-500 shadow-emerald-500/50 shadow-lg' : isThinking ? 'bg-amber-500 shadow-amber-500/50 shadow-lg animate-pulse' : 'bg-slate-700'}
-        `}>
-          {isListening && <div className="w-2.5 h-2.5 bg-white rounded-full animate-ping"></div>}
-        </div>
       </div>
       
-      <div className="text-center relative z-10">
-        <h3 className="text-3xl font-black tracking-tight text-white mb-1 drop-shadow-xl">
-          Khula AI Tutor
+      <div className="text-center relative z-10 mt-12">
+        <h3 className="text-4xl font-black tracking-tight text-white mb-2 drop-shadow-2xl animate-pulse">
+          Khula
         </h3>
         <p className={`
-          text-[11px] font-black uppercase tracking-[0.4em] transition-colors duration-500 drop-shadow-md
+          text-[12px] font-black uppercase tracking-[0.5em] transition-colors duration-500 drop-shadow-md
           ${isSpeaking ? 'text-indigo-400' : isListening ? 'text-emerald-400' : isThinking ? 'text-amber-500' : 'text-slate-500'}
         `}>
-          {isThinking ? 'Analyzing Syllabus' : isSpeaking ? 'Transmitting Instruction' : isListening ? 'Awaiting Input' : 'Neural Hub Active'}
+          {isThinking ? 'Reflecting...' : isSpeaking ? 'Speaking' : isListening ? 'Listening' : 'Ready'}
         </p>
       </div>
 
       <style>{`
         @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-25px) rotate(3deg); }
+        }
+        @keyframes heartbeat {
+          0%, 100% { transform: scale(1); }
+          15% { transform: scale(1.05); }
+          30% { transform: scale(1); }
+          45% { transform: scale(1.05); }
+          60% { transform: scale(1); }
+        }
+        .animate-heartbeat {
+          animation: heartbeat 2s ease-in-out infinite;
+        }
+        .animate-scanline {
+          animation: scanline 8s linear infinite;
+        }
+        @keyframes scanline {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(100%); }
+        }
+        .animate-spin-slow {
+          animation: spin 8s linear infinite;
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
       `}</style>
     </div>

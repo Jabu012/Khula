@@ -92,7 +92,7 @@ const FlashcardsView: React.FC<FlashcardsViewProps> = ({ documents, weaknesses =
       </div>
 
       <div 
-        className="group relative w-full max-w-2xl h-[450px] [perspective:1000px] cursor-pointer"
+        className="group relative w-full max-w-2xl h-[350px] md:h-[450px] [perspective:1000px] cursor-pointer"
         onClick={() => setFlipped(!flipped)}
       >
         <div className={`relative w-full h-full transition-all duration-700 [transform-style:preserve-3d] ${flipped ? '[transform:rotateY(180deg)]' : ''}`}>
@@ -114,7 +114,10 @@ const FlashcardsView: React.FC<FlashcardsViewProps> = ({ documents, weaknesses =
             <div className="flex flex-col items-center justify-center w-full px-4 h-full">
                <p className="text-2xl md:text-3xl font-black text-white leading-tight tracking-tight break-words whitespace-pre-wrap">{card.back}</p>
             </div>
-            <div className="absolute bottom-10 px-5 py-2 bg-black/20 rounded-full text-[10px] font-black text-white uppercase tracking-widest shadow-lg">Concept Neural Locked</div>
+            <div className="absolute bottom-10 flex items-center space-x-3 text-[10px] font-bold text-indigo-200 uppercase tracking-widest bg-black/20 px-5 py-2 rounded-full border border-indigo-500/30">
+               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" /></svg>
+               <span>Concept Reviewed</span>
+            </div>
           </div>
         </div>
       </div>

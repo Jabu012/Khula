@@ -84,7 +84,7 @@ const App: React.FC = () => {
   return (
     <div className="flex h-screen bg-slate-950 text-slate-100 overflow-hidden selection:bg-indigo-500/30">
       {!isImmersive && (
-        <aside className="w-80 bg-slate-900 border-r border-slate-800 flex flex-col transition-all duration-500 ease-in-out shrink-0">
+        <aside className="hidden md:flex w-80 bg-slate-900 border-r border-slate-800 flex-col transition-all duration-500 ease-in-out shrink-0">
           <div className="p-10">
             <h1 className="text-4xl font-black tracking-tighter flex items-center space-x-3 bg-gradient-to-br from-indigo-400 to-purple-500 bg-clip-text text-transparent">
               <img src="/logo.svg" alt="Khula Logo" className="w-12 h-12 rounded-2xl shadow-xl shadow-indigo-600/20 shrink-0" />

@@ -150,7 +150,7 @@ const TutoringView: React.FC<TutoringViewProps> = ({ document, onNavigateToExam 
           outputAudioTranscription: {},
           inputAudioTranscription: {},
           systemInstruction: KHULA_SYSTEM_INSTRUCTION + ` \n\nCURRENT ACADEMIC CONTENT FOR STUDY: ${document.content}`,
-          speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Zephyr' } } }
+          speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Kore' } } }
         }
       });
 
@@ -166,9 +166,30 @@ const TutoringView: React.FC<TutoringViewProps> = ({ document, onNavigateToExam 
     }
   };
 
+  const playChime = () => {
+    if (!outputNodeRef.current) return;
+    const ctx = outputNodeRef.current.context;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(outputNodeRef.current);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    gain.gain.setValueAtTime(0.05, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.2);
+  };
+
+  useEffect(() => {
+    if (isSpeaking) {
+      playChime();
+    }
+  }, [isSpeaking]);
+
   return (
     <div className="flex h-screen bg-slate-950 overflow-hidden relative">
-      <div className="w-[400px] flex flex-col bg-slate-900 border-r border-slate-800 shadow-2xl z-20">
+      <div className="w-full md:w-[400px] flex flex-col bg-slate-900 border-r border-slate-800 shadow-2xl z-20">
         <div className="p-8 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
           <div>
             <h3 className="text-xl font-black flex items-center space-x-3 text-slate-100">
@@ -220,46 +241,82 @@ const TutoringView: React.FC<TutoringViewProps> = ({ document, onNavigateToExam 
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center relative bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-600/10 via-slate-950 to-slate-950">
-        <div className="w-full max-w-xl mb-12 transform scale-125 transition-all duration-1000">
-           <Avatar isThinking={isThinking} isSpeaking={isSpeaking} isListening={isListening} />
-        </div>
+      <div className="flex-1 flex flex-col items-center justify-between p-4 md:p-12 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-600/10 via-slate-950 to-slate-950">
+        {!isLiveActive ? (
+          <div className="text-center space-y-8 max-w-2xl animate-in zoom-in-95 duration-700 z-10 px-12">
+            <div className="relative inline-flex mb-6">
+              <div className="absolute inset-0 bg-indigo-500/20 blur-2xl rounded-full animate-pulse"></div>
+              <div className="relative p-6 bg-slate-900 rounded-[2rem] border border-slate-800 text-indigo-400">
+                <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <h2 className="text-6xl font-black tracking-tight leading-none">Conversation Room</h2>
+              <p className="text-slate-400 text-xl font-medium leading-relaxed">
+                Connect with Khula for a natural academic dialogue. Grounded in your {document.name}.
+              </p>
+            </div>
+            <button 
+              onClick={startSession}
+              className="group relative px-14 py-6 bg-indigo-600 hover:bg-indigo-500 rounded-[2rem] font-black text-sm uppercase tracking-[0.3em] transition-all hover:scale-105 active:scale-95 shadow-[0_20px_50px_rgba(79,70,229,0.4)]"
+            >
+              <span className="relative z-10">Start Academic Dialogue</span>
+            </button>
+          </div>
+        ) : (
+          <>
+            {/* Status Pill */}
+            <div className="px-6 py-3 bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-full flex items-center space-x-3 shadow-xl">
+               <div className={`w-2 h-2 rounded-full shadow-[0_0_8px_rgba(99,102,241,0.8)] animate-pulse ${isThinking ? 'bg-amber-500 shadow-amber-500' : 'bg-indigo-500'}`}></div>
+               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">
+                 {isThinking ? 'Khula: Reflecting...' : 'Professional Academic Session'}
+               </span>
+            </div>
 
-        <div className="flex items-center space-x-12 mt-20">
-          <div className={`p-10 rounded-full border-4 transition-all duration-500 shadow-2xl ${isSpeaking ? 'border-indigo-500 bg-indigo-500/10 shadow-indigo-500/20' : isListening ? 'border-emerald-500 bg-emerald-500/10 shadow-emerald-500/20' : 'border-slate-800 bg-slate-900'}`}>
-             <div className="w-16 h-16 flex items-center justify-center">
-               {isSpeaking ? (
-                  <div className="flex space-x-1.5 items-end h-8">
-                    {[1, 2, 3, 4, 3, 2, 1, 2, 4, 3].map((h, i) => (
-                      <div key={i} className="w-1.5 bg-indigo-400 rounded-full animate-pulse" style={{ height: `${h * 10}%`, animationDelay: `${i * 0.1}s` }}></div>
-                    ))}
-                  </div>
-               ) : isListening ? (
-                  <div className="w-4 h-4 bg-emerald-500 rounded-full animate-ping shadow-[0_0_15px_rgba(16,185,129,0.8)]"></div>
-               ) : (
-                  <svg className="w-10 h-10 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
-               )}
+            {/* Center: Avatar and Controls */}
+            <div className="flex flex-col items-center justify-center flex-1 w-full">
+              <div className="w-full max-w-xl mb-12 transform scale-125 transition-all duration-1000">
+                 <Avatar isThinking={isThinking} isSpeaking={isSpeaking} isListening={isListening} />
+              </div>
+
+              <div className="flex items-center space-x-12 mt-20">
+                <div className={`p-10 rounded-full border-4 transition-all duration-500 shadow-2xl ${isSpeaking ? 'border-indigo-500 bg-indigo-500/10 shadow-indigo-500/20' : isListening ? 'border-emerald-500 bg-emerald-500/10 shadow-emerald-500/20' : 'border-slate-800 bg-slate-900'}`}>
+                   <div className="w-16 h-16 flex items-center justify-center">
+                     {isSpeaking ? (
+                        <div className="flex space-x-1.5 items-end h-8">
+                          {[1, 2, 3, 4, 3, 2, 1, 2, 4, 3].map((h, i) => (
+                            <div key={i} className="w-1.5 bg-indigo-400 rounded-full animate-pulse" style={{ height: `${h * 10}%`, animationDelay: `${i * 0.1}s` }}></div>
+                          ))}
+                        </div>
+                     ) : isListening ? (
+                        <div className="w-4 h-4 bg-emerald-500 rounded-full animate-ping shadow-[0_0_15px_rgba(16,185,129,0.8)]"></div>
+                     ) : (
+                        <svg className="w-10 h-10 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
+                     )}
+                   </div>
+                </div>
+
+                <button 
+                  onClick={endSession}
+                  className="group p-8 bg-red-600/10 border border-red-500/30 text-red-500 rounded-[2rem] hover:bg-red-600 hover:text-white transition-all shadow-2xl active:scale-90"
+                  title="Terminate Session"
+                >
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Knowledge Overlay */}
+        {!isLiveActive && (
+          <div className="px-8 py-4 bg-slate-900/80 backdrop-blur-2xl border border-slate-800 rounded-2xl flex items-center space-x-6 shadow-2xl">
+             <div className="flex flex-col text-center">
+                <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Digital Mentor Active</span>
+                <span className="text-xs font-bold text-slate-200">Grounded in Academic Metadata</span>
              </div>
           </div>
-
-          <button onClick={endSession} className="group p-8 bg-red-600/10 border border-red-500/30 text-red-500 rounded-[2rem] hover:bg-red-600 hover:text-white transition-all shadow-2xl active:scale-90">
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" /></svg>
-          </button>
-        </div>
-
-        <div className="absolute top-12 px-6 py-3 bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-full flex items-center space-x-3 shadow-xl">
-           <div className={`w-2 h-2 rounded-full shadow-[0_0_8px_rgba(99,102,241,0.8)] animate-pulse ${isThinking ? 'bg-amber-500 shadow-amber-500' : 'bg-indigo-500'}`}></div>
-           <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">
-             {isThinking ? 'Khula: Reflecting...' : 'Professional Academic Session'}
-           </span>
-        </div>
-
-        <div className="absolute bottom-12 px-8 py-4 bg-slate-900/80 backdrop-blur-2xl border border-slate-800 rounded-2xl flex items-center space-x-6 shadow-2xl">
-           <div className="flex flex-col text-center">
-              <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Digital Mentor Active</span>
-              <span className="text-xs font-bold text-slate-200">Grounded in Academic Metadata</span>
-           </div>
-        </div>
+        )}
       </div>
     </div>
   );

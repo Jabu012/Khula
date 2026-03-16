@@ -89,7 +89,7 @@ Follow these steps to deploy and test the Khula Tutor environment:
 ## 🌐 Public Code Repo
 
 The official source code is maintained by Jabulani Dube:
-[https://github.com/dubejabulani16/khula-tutor](https://github.com/Jabu012/Khula)
+[https://github.com/dubejabulani16/khula-tutor](https://github.com/dubejabulani16/khula-tutor)
 
 ---
 
@@ -98,13 +98,6 @@ The official source code is maintained by Jabulani Dube:
 The application is containerized and deployed via Google Cloud Run for high availability and global scaling.
 
 **Production URL:** [https://ais-pre-geh2mj74yamhjkadurw3c5-61460379161.europe-west1.run.app](https://ais-pre-geh2mj74yamhjkadurw3c5-61460379161.europe-west1.run.app)
-
-### Google Cloud Deployment Video Proof
-
-🔗 **Google Cloud Deployment Video Proof:**  
-https://drive.google.com/file/d/1H1R81TAP4r0vM9T2FXdE0FYzq6kx6xAG/view?usp=sharing
-
-**Note:** Due to file size and GitHub upload limitations, I experienced issues uploading the video directly to the README repository. The deployment proof video has therefore been hosted on Google Drive and is accessible via the link above.
 
 ### Deployment Specs
 - **Runtime:** Node.js 22 (LTS)
@@ -138,14 +131,3 @@ https://drive.google.com/file/d/1H1R81TAP4r0vM9T2FXdE0FYzq6kx6xAG/view?usp=shari
 - **AI Engine:** Google Gemini 3 Flash (@google/genai)
 - **Deployment:** Google Cloud Run
 - **Icons:** Lucide React (Custom SVG implementations)
-
-## © Intellectual Property
-
-© 2026 Jabulani Dube. All rights reserved.
-
-Khula Tutor, its architecture, algorithms, AI tutoring methodology, and system design are the intellectual property of the author.
-
-This repository is provided for demonstration, evaluation, and academic purposes only. No part of this project may be reproduced, distributed, or used commercially without explicit permission from the author.
-
-For inquiries regarding licensing or collaboration, please contact:
-dubejabulanil6@gmail.com
