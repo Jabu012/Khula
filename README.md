@@ -99,6 +99,7 @@ The application is containerized and deployed via Google Cloud Run for high avai
 
 **Production URL:** [https://ais-pre-geh2mj74yamhjkadurw3c5-61460379161.europe-west1.run.app](https://ais-pre-geh2mj74yamhjkadurw3c5-61460379161.europe-west1.run.app)
 
+
 ### Deployment Specs
 - **Runtime:** Node.js 22 (LTS)
 - **Region:** `europe-west1`
