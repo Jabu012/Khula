@@ -16,10 +16,10 @@ export async function fileToBase64(file: File): Promise<string> {
 
 export async function analyzePDF(file: File) {
   const base64 = await fileToBase64(file);
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   
   const response = await ai.models.generateContent({
-    model: 'gemini-3.1-flash-lite-preview',
+    model: 'gemini-3.1-pro-preview',
     contents: [
       {
         inlineData: {
@@ -68,9 +68,9 @@ export async function analyzePDF(file: File) {
 }
 
 export async function generateExplanation(topic: string, context: string) {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   const response = await ai.models.generateContent({
-    model: 'gemini-3.1-flash-lite-preview',
+    model: 'gemini-3.1-pro-preview',
     contents: `Explain this topic: ${topic}. Use the following source context: ${context}`,
     config: {
       systemInstruction: KHULA_SYSTEM_INSTRUCTION,
@@ -81,9 +81,9 @@ export async function generateExplanation(topic: string, context: string) {
 }
 
 export async function generateQuiz(context: string) {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   const response = await ai.models.generateContent({
-    model: 'gemini-3.1-flash-lite-preview',
+    model: 'gemini-3.1-pro-preview',
     contents: `Based on the provided material: "${context.substring(0, 10000)}", generate a 5-question multiple choice exam. 
     Crucially: Include 3 questions strictly from the text and 2 highly relevant advanced questions from general academic knowledge that help master these specific concepts. 
     Return strictly as a JSON array.`,
@@ -116,7 +116,7 @@ export async function generateFlashcards(context: string, weaknesses: string = "
     : `Based on the material: "${context.substring(0, 4000)}", generate 8 comprehensive flashcards covering key concepts.`;
 
   const response = await ai.models.generateContent({
-    model: 'gemini-3.1-flash-lite-preview',
+    model: 'gemini-3.1-pro-preview',
     contents: prompt,
     config: {
       systemInstruction: KHULA_SYSTEM_INSTRUCTION + "\nReturn a JSON array of objects with 'id', 'front', and 'back' properties. No other text.",

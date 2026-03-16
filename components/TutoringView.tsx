@@ -19,7 +19,8 @@ const TutoringView: React.FC<TutoringViewProps> = ({ document, onNavigateToExam 
   const [isLiveActive, setIsLiveActive] = useState(false);
   const [currentTranscription, setCurrentTranscription] = useState('');
   
-  const audioContextRef = useRef<AudioContext | null>(null);
+  const inputAudioContextRef = useRef<AudioContext | null>(null);
+  const outputAudioContextRef = useRef<AudioContext | null>(null);
   const outputNodeRef = useRef<GainNode | null>(null);
   const nextStartTimeRef = useRef(0);
   const sourcesRef = useRef<Set<AudioBufferSourceNode>>(new Set());
@@ -38,6 +39,12 @@ const TutoringView: React.FC<TutoringViewProps> = ({ document, onNavigateToExam 
       if (sessionPromiseRef.current) {
         sessionPromiseRef.current.then(session => session.close());
       }
+      if (inputAudioContextRef.current) {
+        inputAudioContextRef.current.close();
+      }
+      if (outputAudioContextRef.current) {
+        outputAudioContextRef.current.close();
+      }
     };
   }, [document.id]);
 
@@ -48,7 +55,8 @@ const TutoringView: React.FC<TutoringViewProps> = ({ document, onNavigateToExam 
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const inputAudioContext = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
       const outputAudioContext = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
-      audioContextRef.current = outputAudioContext;
+      inputAudioContextRef.current = inputAudioContext;
+      outputAudioContextRef.current = outputAudioContext;
       outputNodeRef.current = outputAudioContext.createGain();
       outputNodeRef.current.connect(outputAudioContext.destination);
 

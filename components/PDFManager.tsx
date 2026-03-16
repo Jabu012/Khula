@@ -37,7 +37,7 @@ const PDFManager: React.FC<PDFManagerProps> = ({ onUpload, documents, onDelete, 
       onUpload(newDoc);
     } catch (err) {
       console.error("PDF Analysis Failed:", err);
-      alert("Failed to analyze the academic material. Please try a different PDF.");
+      alert(`Failed to analyze the academic material: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setIsUploading(false);
       setUploadProgress("");
