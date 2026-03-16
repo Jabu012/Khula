@@ -99,6 +99,12 @@ The application is containerized and deployed via Google Cloud Run for high avai
 
 **Production URL:** [https://ais-pre-geh2mj74yamhjkadurw3c5-61460379161.europe-west1.run.app](https://ais-pre-geh2mj74yamhjkadurw3c5-61460379161.europe-west1.run.app)
 
+### Google Cloud Deployment Video Proof
+
+🔗 **Google Cloud Deployment Video Proof:**  
+https://drive.google.com/file/d/1H1R81TAP4r0vM9T2FXdE0FYzq6kx6xAG/view?usp=sharing
+
+**Note:** Due to file size and GitHub upload limitations, I experienced issues uploading the video directly to the README repository. The deployment proof video has therefore been hosted on Google Drive and is accessible via the link above.
 
 ### Deployment Specs
 - **Runtime:** Node.js 22 (LTS)
